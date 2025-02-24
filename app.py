@@ -1,12 +1,18 @@
 from flask import Flask, request, render_template
 import pickle
 import string
-from nltk.corpus import stopwords
+import os
 import nltk
+from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
-nltk.download('stopwords')
-nltk.download('punkt')
+# Download NLTK data if not already downloaded
+nltk_data_path = os.path.join(os.path.expanduser('~'), 'nltk_data')
+nltk.data.path.append(nltk_data_path)
+if not os.path.exists(os.path.join(nltk_data_path, 'tokenizers/punkt')):
+    nltk.download('punkt', download_dir=nltk_data_path)
+if not os.path.exists(os.path.join(nltk_data_path, 'corpora/stopwords')):
+    nltk.download('stopwords', download_dir=nltk_data_path)
 
 ps = PorterStemmer()
 
